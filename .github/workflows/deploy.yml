@@ -9,11 +9,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: "hugomods/hugo"
+      image: alpine
       options: --user root # to run as root user
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Build
-        run: hugo
+        run: |
+          apk update
+          apk add hugo git 
+          git clone https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+          hugo
