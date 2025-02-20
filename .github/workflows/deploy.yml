@@ -18,6 +18,7 @@ jobs:
       - name: Build
         run: |
           apk update
-          apk add hugo git 
+          apk add hugo git openssh sshpass
           git clone https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
           hugo
+          sshpass -p "${{ secrets.PASSWORD }}" scp -T -o StrictHostKeyChecking=no -r public root@nginx.windy-rain.cn:/root/code/nginx/data
